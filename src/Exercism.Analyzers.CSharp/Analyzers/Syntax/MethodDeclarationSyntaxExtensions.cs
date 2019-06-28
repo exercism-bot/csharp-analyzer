@@ -24,7 +24,10 @@ namespace Exercism.Analyzers.CSharp.Analyzers.Syntax
             methodDeclaration.ExpressionBody != null;
 
         public static ParameterSyntax FirstParameter(this MethodDeclarationSyntax methodDeclaration) =>
-            methodDeclaration?.ParameterList.Parameters[0];
+            methodDeclaration?.ParameterList?.Parameters[0];
+
+        public static ParameterSyntax SecondParameter(this MethodDeclarationSyntax methodDeclaration) =>
+            methodDeclaration?.ParameterList?.Parameters[1];
         
         public static bool UsesIfStatement(this MethodDeclarationSyntax methodDeclaration) =>
             methodDeclaration

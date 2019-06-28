@@ -1,6 +1,7 @@
 using System;
 using Exercism.Analyzers.CSharp.Analyzers;
 using Exercism.Analyzers.CSharp.Analyzers.Gigasecond;
+using Exercism.Analyzers.CSharp.Analyzers.Hamming;
 using Exercism.Analyzers.CSharp.Analyzers.Leap;
 using Exercism.Analyzers.CSharp.Analyzers.Shared;
 using Exercism.Analyzers.CSharp.Analyzers.TwoFer;
@@ -46,6 +47,8 @@ namespace Exercism.Analyzers.CSharp
                     return GigasecondAnalyzer.Analyze(parsedSolution);
                 case Exercises.Leap:
                     return LeapAnalyzer.Analyze(parsedSolution);
+                case Exercises.Hamming:
+                    return HammingAnalyzer.Analyze(parsedSolution);
                 default:
                     return UnsupportedExerciseAnalyzer.Analyze(parsedSolution);
             }
