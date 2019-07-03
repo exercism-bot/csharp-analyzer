@@ -1,4 +1,5 @@
 using System.Linq;
+using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using static Exercism.Analyzers.CSharp.Analyzers.Shared.SharedSyntaxFactory;
 
@@ -9,7 +10,7 @@ namespace Exercism.Analyzers.CSharp.Analyzers.Syntax
         public static bool AssignsToParameter(this MethodDeclarationSyntax methodDeclaration, ParameterSyntax parameter) =>
             methodDeclaration.AssignsToIdentifier(IdentifierName(parameter));
 
-        public static bool SingleLine(this MethodDeclarationSyntax methodDeclaration) =>
+        public static bool UsesSingleLine(this MethodDeclarationSyntax methodDeclaration) =>
             methodDeclaration.ExpressionBody != null ||
             methodDeclaration.Body.Statements.Count == 1;
 

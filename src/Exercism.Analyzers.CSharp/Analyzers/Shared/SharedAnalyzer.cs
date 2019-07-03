@@ -32,7 +32,7 @@ namespace Exercism.Analyzers.CSharp.Analyzers.Shared
             parsedSolution.SyntaxRoot.GetDiagnostics().Any(diagnostic => diagnostic.Severity == DiagnosticSeverity.Error);
 
         private static bool HasMainMethod(this ParsedSolution parsedSolution) =>
-            parsedSolution.SyntaxRoot.GetClassMethod("Program", "Main") != null;
+            parsedSolution.SyntaxRoot.GetClassMethodDeclaration("Program", "Main") != null;
 
         private static bool ThrowsNotImplementedException(this ParsedSolution parsedSolution) =>
             parsedSolution.SyntaxRoot.ThrowsExceptionOfType<NotImplementedException>();

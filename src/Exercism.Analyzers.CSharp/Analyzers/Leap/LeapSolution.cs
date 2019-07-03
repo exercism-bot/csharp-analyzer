@@ -38,7 +38,7 @@ namespace Exercism.Analyzers.CSharp.Analyzers.Leap
                 DateTimeMemberAccessExpression(SyntaxFactory.IdentifierName("IsLeapYear")));
 
         public bool UsesSingleLine() =>
-            _isLeapYearMethod.SingleLine();
+            _isLeapYearMethod.UsesSingleLine();
 
         public bool UsesExpressionBody() =>
             _isLeapYearMethod.IsExpressionBody();

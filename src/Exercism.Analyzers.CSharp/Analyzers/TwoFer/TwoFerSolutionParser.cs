@@ -12,8 +12,8 @@ namespace Exercism.Analyzers.CSharp.Analyzers.TwoFer
     {
         public static TwoFerSolution Parse(ParsedSolution solution)
         {
-            var twoFerClass = solution.SyntaxRoot.GetClass("TwoFer");
-            var speakMethod = twoFerClass.GetMethod("Speak");
+            var twoFerClass = solution.SyntaxRoot.GetClassDeclaration("TwoFer");
+            var speakMethod = twoFerClass.GetMethodDeclaration("Speak");
             var speakMethodParameter = speakMethod?.ParameterList.Parameters.FirstOrDefault();
             var speakMethodReturnedExpression = speakMethod?.ReturnedExpression();
             var speakMethodVariable = speakMethod?.AssignedVariable();
@@ -63,7 +63,7 @@ namespace Exercism.Analyzers.CSharp.Analyzers.TwoFer
                 PredefinedType(Token(SyntaxKind.StringKeyword)));
 
         private static bool UsesOverloads(this ClassDeclarationSyntax twoFerClass) =>
-            twoFerClass.GetMethods("Speak").Count() > 1;
+            twoFerClass.GetMethodDeclarations("Speak").Count() > 1;
 
         private static bool UsesDuplicateString(this MethodDeclarationSyntax speakMethod)
         {

@@ -1,5 +1,3 @@
-using Exercism.Analyzers.CSharp.Analyzers.Shared;
-
 namespace Exercism.Analyzers.CSharp.Analyzers.Hamming
 {
     internal static class HammingAnalyzer
@@ -13,27 +11,20 @@ namespace Exercism.Analyzers.CSharp.Analyzers.Hamming
             hammingSolution.ApproveWhenOptimal() ??
             hammingSolution.ReferToMentor();
 
-        private static SolutionAnalysis DisapproveWhenInvalid(this HammingSolution hammingSolution)
-        {
-            // TODO: implement
+        private static SolutionAnalysis DisapproveWhenInvalid(this HammingSolution hammingSolution) =>
+            hammingSolution.ContinueAnalysis();
 
-            return hammingSolution.HasComments()
-                ? hammingSolution.DisapproveWithComment()
-                : hammingSolution.ContinueAnalysis();
-        }
-
-        private static SolutionAnalysis ApproveWhenValid(this HammingSolution hammingSolution)
-        {
-            // TODO: implement
-
-            return hammingSolution.HasComments() ?
-                hammingSolution.ApproveWithComment() :
-                hammingSolution.ContinueAnalysis();
-        }
+        private static SolutionAnalysis ApproveWhenValid(this HammingSolution hammingSolution) =>
+            hammingSolution.ContinueAnalysis();
 
         private static SolutionAnalysis ApproveWhenOptimal(this HammingSolution hammingSolution)
         {
-            // TODO: implement
+            if (hammingSolution.NumberOfStatements == 2 &&
+                hammingSolution.StartsWithIfStatement &&
+                hammingSolution.IfStatementThrowsArgumentException &&
+                hammingSolution.ComparesLengthsUsingNotEqual &&
+                hammingSolution.EndsWithLinqWhereSolution)
+                return hammingSolution.ApproveAsOptimal();
 
             return hammingSolution.ContinueAnalysis();
         }

@@ -31,10 +31,10 @@ namespace Exercism.Analyzers.CSharp.Analyzers.Gigasecond
         }
         
         private static ClassDeclarationSyntax GigasecondClass(this ParsedSolution solution) =>
-            solution.SyntaxRoot.GetClass("Gigasecond");
+            solution.SyntaxRoot.GetClassDeclaration("Gigasecond");
         
         private static MethodDeclarationSyntax AddMethod(this ClassDeclarationSyntax gigasecondClass) =>
-            gigasecondClass?.GetMethod("Add");
+            gigasecondClass?.GetMethodDeclaration("Add");
 
         private static InvocationExpressionSyntax AddSecondsInvocationExpression(this MethodDeclarationSyntax addMethod, ParameterSyntax addMethodParameter) =>
             addMethod.DescendantNodes<InvocationExpressionSyntax>().FirstOrDefault(

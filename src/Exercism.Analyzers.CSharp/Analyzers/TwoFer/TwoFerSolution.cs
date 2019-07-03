@@ -74,7 +74,7 @@ namespace Exercism.Analyzers.CSharp.Analyzers.TwoFer
             _speakMethod.AssignsToParameter(_speakMethodParameter);
 
         public bool UsesSingleLine() =>
-            _speakMethod.SingleLine();
+            _speakMethod.UsesSingleLine();
 
         public bool UsesExpressionBody() =>
             _speakMethod.IsExpressionBody();

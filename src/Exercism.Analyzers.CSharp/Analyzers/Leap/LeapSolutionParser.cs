@@ -16,10 +16,10 @@ namespace Exercism.Analyzers.CSharp.Analyzers.Leap
         }
 
         private static ClassDeclarationSyntax LeapClass(this ParsedSolution solution) =>
-            solution.SyntaxRoot.GetClass("Leap");
+            solution.SyntaxRoot.GetClassDeclaration("Leap");
 
         private static MethodDeclarationSyntax IsLeapYearMethod(this ClassDeclarationSyntax leapClass) =>
-            leapClass?.GetMethod("IsLeapYear");
+            leapClass?.GetMethodDeclaration("IsLeapYear");
 
         private static ParameterSyntax YearParameter(this MethodDeclarationSyntax isLeapYearMethod) =>
             isLeapYearMethod.ParameterList?.Parameters.FirstOrDefault();

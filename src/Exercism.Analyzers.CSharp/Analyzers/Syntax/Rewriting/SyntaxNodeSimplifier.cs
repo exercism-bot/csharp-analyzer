@@ -13,7 +13,8 @@ namespace Exercism.Analyzers.CSharp.Analyzers.Syntax.Rewriting
             new UseBuiltInKeywordSyntaxRewriter(),
             new InvertNegativeConditionalSyntaxRewriter(),
             new AddBracesSyntaxRewriter(),
-            new ExponentNotationSyntaxRewriter()
+            new ExponentNotationSyntaxRewriter(),
+            new RemoveExceptionArgumentsSyntaxRewriter()
         };
 
         public static SyntaxNode Simplify(SyntaxNode reducedSyntaxRoot) =>

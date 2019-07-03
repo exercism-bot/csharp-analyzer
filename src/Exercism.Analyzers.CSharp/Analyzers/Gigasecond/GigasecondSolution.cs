@@ -63,7 +63,7 @@ namespace Exercism.Analyzers.CSharp.Analyzers.Gigasecond
             _addMethod.IsExpressionBody();
 
         public bool UsesSingleLine() =>
-            _addMethod.SingleLine();
+            _addMethod.UsesSingleLine();
 
         public bool UsesConstField() =>
             UsesField() &&
