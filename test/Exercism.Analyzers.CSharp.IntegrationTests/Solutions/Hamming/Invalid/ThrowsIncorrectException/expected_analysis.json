@@ -1,0 +1,9 @@
+{
+  "status": "disapprove",
+  "comments": [
+    {
+      "comment": "csharp.general.does_not_pass_all_tests",
+      "params": {}
+    }
+  ]
+}

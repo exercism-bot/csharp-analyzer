@@ -45,10 +45,19 @@ namespace Exercism.Analyzers.CSharp.Analyzers.Hamming
             _lengthComparisonIfStatement != null &&
             _firstStatement.IsEquivalentWhenNormalized(_lengthComparisonIfStatement);
 
+        public bool InvalidExceptionThrown =>
+            _thrownException == null;
+
         public bool IfStatementThrowsArgumentException =>
             _lengthComparisonIfStatement != null &&
             _lengthComparisonIfStatement.Statement.IsEquivalentWhenNormalized(
                 Block(_thrownException));
+
+        public bool ComparesLengthsUsingUnknown =>
+            _lengthComparison == HammingLengthComparison.Unknown;
+
+        public bool ComparesLengthsUsingEqual =>
+            _lengthComparison == HammingLengthComparison.Equal;
 
         public bool ComparesLengthsUsingNotEqual =>
             _lengthComparison == HammingLengthComparison.NotEqual;
@@ -89,5 +98,53 @@ namespace Exercism.Analyzers.CSharp.Analyzers.Hamming
                                                                     Parameter(
                                                                         Identifier("i"))}))))))),
                                     IdentifierName("Count")))));
+
+
+
+        public bool EndsWithLinqZipSolution =>
+            _secondStatement.IsEquivalentWhenNormalized(
+                ReturnStatement(
+                    InvocationExpression(
+                        MemberAccessExpression(
+                            SyntaxKind.SimpleMemberAccessExpression,
+                            InvocationExpression(
+                                    MemberAccessExpression(
+                                        SyntaxKind.SimpleMemberAccessExpression,
+                                        IdentifierName("firstStrand"),
+                                        IdentifierName("Zip")))
+                                .WithArgumentList(
+                                    ArgumentList(
+                                        SeparatedList<ArgumentSyntax>(
+                                            new SyntaxNodeOrToken[]
+                                            {
+                                                Argument(
+                                                    IdentifierName("secondStrand")),
+                                                Token(SyntaxKind.CommaToken),
+                                                Argument(
+                                                    ParenthesizedLambdaExpression(
+                                                            ConditionalExpression(
+                                                                BinaryExpression(
+                                                                    SyntaxKind.NotEqualsExpression,
+                                                                    IdentifierName("l"),
+                                                                    IdentifierName("r")),
+                                                                LiteralExpression(
+                                                                    SyntaxKind.NumericLiteralExpression,
+                                                                    Literal(1)),
+                                                                LiteralExpression(
+                                                                    SyntaxKind.NumericLiteralExpression,
+                                                                    Literal(0))))
+                                                        .WithParameterList(
+                                                            ParameterList(
+                                                                SeparatedList<ParameterSyntax>(
+                                                                    new SyntaxNodeOrToken[]
+                                                                    {
+                                                                        Parameter(
+                                                                            Identifier("l")),
+                                                                        Token(SyntaxKind.CommaToken),
+                                                                        Parameter(
+                                                                            Identifier("r"))
+                                                                    }))))
+                                            }))),
+                            IdentifierName("Sum")))));
     }
 }

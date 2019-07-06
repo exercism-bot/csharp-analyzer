@@ -1,0 +1,9 @@
+{
+  "status": "approve",
+  "comments": [
+    {
+      "comment": "csharp.general.check_for_exceptions_first",
+      "params": {}
+    }
+  ]
+}

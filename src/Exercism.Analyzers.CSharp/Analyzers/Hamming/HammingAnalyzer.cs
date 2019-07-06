@@ -1,3 +1,5 @@
+using static Exercism.Analyzers.CSharp.Analyzers.Shared.SharedComments;
+
 namespace Exercism.Analyzers.CSharp.Analyzers.Hamming
 {
     internal static class HammingAnalyzer
@@ -8,23 +10,39 @@ namespace Exercism.Analyzers.CSharp.Analyzers.Hamming
         private static SolutionAnalysis Analyze(HammingSolution hammingSolution) =>
             hammingSolution.DisapproveWhenInvalid() ??
             hammingSolution.ApproveWhenValid() ??
-            hammingSolution.ApproveWhenOptimal() ??
             hammingSolution.ReferToMentor();
 
-        private static SolutionAnalysis DisapproveWhenInvalid(this HammingSolution hammingSolution) =>
-            hammingSolution.ContinueAnalysis();
-
-        private static SolutionAnalysis ApproveWhenValid(this HammingSolution hammingSolution) =>
-            hammingSolution.ContinueAnalysis();
-
-        private static SolutionAnalysis ApproveWhenOptimal(this HammingSolution hammingSolution)
+        private static SolutionAnalysis DisapproveWhenInvalid(this HammingSolution hammingSolution)
         {
-            if (hammingSolution.NumberOfStatements == 2 &&
-                hammingSolution.StartsWithIfStatement &&
-                hammingSolution.IfStatementThrowsArgumentException &&
-                hammingSolution.ComparesLengthsUsingNotEqual &&
-                hammingSolution.EndsWithLinqWhereSolution)
-                return hammingSolution.ApproveAsOptimal();
+            if (hammingSolution.InvalidExceptionThrown ||
+                hammingSolution.StartsWithIfStatement)
+                hammingSolution.AddComment(DoesNotPassAllTests);
+
+            if (hammingSolution.IfStatementThrowsArgumentException)
+            {
+                if (!hammingSolution.ComparesLengthsUsingNotEqual)
+                    hammingSolution.AddComment(DoesNotPassAllTests);
+            }
+            else
+            {
+                if (!hammingSolution.ComparesLengthsUsingEqual)
+                    hammingSolution.AddComment(DoesNotPassAllTests);
+            }
+
+            return hammingSolution.HasComments()
+                ? hammingSolution.Disapprove()
+                : hammingSolution.ContinueAnalysis();
+        }
+
+        private static SolutionAnalysis ApproveWhenValid(this HammingSolution hammingSolution)
+        {
+            if (hammingSolution.NumberOfStatements != 2 ||
+                hammingSolution.ComparesLengthsUsingUnknown)
+                return hammingSolution.ContinueAnalysis();
+            
+            if (hammingSolution.ComparesLengthsUsingNotEqual &&
+                (hammingSolution.EndsWithLinqWhereSolution || hammingSolution.EndsWithLinqZipSolution))
+                return hammingSolution.Approve();
 
             return hammingSolution.ContinueAnalysis();
         }
