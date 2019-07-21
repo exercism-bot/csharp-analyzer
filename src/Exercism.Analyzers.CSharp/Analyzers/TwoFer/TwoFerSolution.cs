@@ -248,10 +248,14 @@ namespace Exercism.Analyzers.CSharp.Analyzers.TwoFer
                     TwoFerParameterIdentifierName(this)));
 
         private bool ParameterAssignedUsingStatement(SyntaxNode statement) =>
+            AssignsStatement &&
             AssignmentStatement.IsEquivalentWhenNormalized(statement);
 
+        private bool AssignsStatement =>
+            AssignmentStatement != null;
+
         private StatementSyntax AssignmentStatement =>
-            SpeakMethod.Body.Statements[0];
+            SpeakMethod.Body?.Statements[0];
 
         public bool AssignsVariable =>
             TwoFerVariable != null;
@@ -277,6 +281,7 @@ namespace Exercism.Analyzers.CSharp.Analyzers.TwoFer
             AssignsVariableUsingExpression(TwoFerParameterIsNullOrWhiteSpaceConditionalExpression(this));
 
         private bool AssignsVariableUsingExpression(ExpressionSyntax initializer) =>
+            AssignsVariable &&
             TwoFerVariable.Initializer.IsEquivalentWhenNormalized(
                 EqualsValueClause(initializer));
 
@@ -295,7 +300,8 @@ namespace Exercism.Analyzers.CSharp.Analyzers.TwoFer
                 TwoFerStringFormatInvocationExpression(
                     TwoFerVariableIdentifierName(this)));
 
-        private bool Returns(SyntaxNode returned) => TwoFerExpression.IsEquivalentWhenNormalized(returned);
+        private bool Returns(SyntaxNode returned) =>
+            TwoFerExpression.IsEquivalentWhenNormalized(returned);
 
         public bool MissingSpeakMethod =>
             SpeakMethod == null;
@@ -342,12 +348,12 @@ namespace Exercism.Analyzers.CSharp.Analyzers.TwoFer
             SpeakMethod.ParameterList.Parameters.All(parameter => parameter.Default == null);
 
         public bool UsesInvalidDefaultValue =>
-            UseDefaultValue &&
+            UsesDefaultValue &&
             !DefaultValueIsNull &&
             !DefaultValueIsYouString &&
             !DefaultValueIsYouStringSpecifiedAsConst;
 
-        private bool UseDefaultValue =>
+        private bool UsesDefaultValue =>
             SpeakMethodParameter?.Default != null;
 
         private bool DefaultValueIsNull =>
@@ -360,5 +366,11 @@ namespace Exercism.Analyzers.CSharp.Analyzers.TwoFer
             SpeakMethodParameter.Default.Value is IdentifierNameSyntax identifierName &&
             TwoFerClass.AssignedVariableWithName(identifierName).IsEquivalentWhenNormalized(
                 SyntaxFactory.VariableDeclarator(identifierName.Identifier, default, EqualsValueClause(StringLiteralExpression("you"))));
+
+        public bool UsesIsNullOrEmptyCheck =>
+            ReturnsStringInterpolationWithIsNullOrEmptyCheck ||
+            AssignsParameterUsingIsNullOrEmptyCheck ||
+            AssignsParameterUsingIfIsNullOrEmptyCheck ||
+            AssignsVariableUsingIsNullOrEmptyCheck;
     }
 }

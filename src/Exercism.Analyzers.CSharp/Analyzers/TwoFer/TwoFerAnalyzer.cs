@@ -42,18 +42,20 @@ namespace Exercism.Analyzers.CSharp.Analyzers.TwoFer
                 : solution.ContinueAnalysis();
         }
 
-        private static SolutionAnalysis ApproveWhenValid(this TwoFerSolution solution) =>
-            solution.AnalyzeSingleLine() ??
-            solution.AnalyzeParameterAssignment() ??
-            solution.AnalyzeVariableAssignment();
+        private static SolutionAnalysis ApproveWhenValid(this TwoFerSolution solution)
+        {
+            if (solution.UsesIsNullOrEmptyCheck)
+                solution.AddComment(UseNullCoalescingOperatorNotIsNullOrEmptyCheck);
+            
+            return solution.AnalyzeSingleLine() ??
+                   solution.AnalyzeParameterAssignment() ??
+                   solution.AnalyzeVariableAssignment();
+        }
 
         private static SolutionAnalysis AnalyzeSingleLine(this TwoFerSolution solution)
         {
             if (!solution.UsesSingleLine)
                 return null;
-
-            if (solution.ReturnsStringInterpolationWithIsNullOrEmptyCheck)
-                solution.AddComment(UseNullCoalescingOperatorNotIsNullOrEmptyCheck);
 
             if (solution.ReturnsStringInterpolationWithIsNullOrWhiteSpaceCheck)
                 solution.AddComment(UseNullCoalescingOperatorNotIsNullOrWhiteSpaceCheck);
@@ -99,10 +101,6 @@ namespace Exercism.Analyzers.CSharp.Analyzers.TwoFer
                 solution.AssignsParameterUsingIfNullCheck)
                 solution.AddComment(UseNullCoalescingOperatorNotNullCheck);
 
-            if (solution.AssignsParameterUsingIsNullOrEmptyCheck ||
-                solution.AssignsParameterUsingIfIsNullOrEmptyCheck)
-                solution.AddComment(UseNullCoalescingOperatorNotIsNullOrEmptyCheck);
-
             if (solution.AssignsParameterUsingIsNullOrWhiteSpaceCheck ||
                 solution.AssignsParameterUsingIfIsNullOrWhiteSpaceCheck)
                 solution.AddComment(UseNullCoalescingOperatorNotIsNullOrWhiteSpaceCheck);
@@ -130,9 +128,6 @@ namespace Exercism.Analyzers.CSharp.Analyzers.TwoFer
 
             if (solution.AssignsVariableUsingNullCheck)
                 solution.AddComment(UseNullCoalescingOperatorNotNullCheck);
-
-            if (solution.AssignsVariableUsingIsNullOrEmptyCheck)
-                solution.AddComment(UseNullCoalescingOperatorNotIsNullOrEmptyCheck);
 
             if (solution.AssignsVariableUsingIsNullOrWhiteSpaceCheck)
                 solution.AddComment(UseNullCoalescingOperatorNotIsNullOrWhiteSpaceCheck);
