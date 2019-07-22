@@ -1,6 +1,7 @@
 using Exercism.Analyzers.CSharp.Analyzers.Default;
 using Exercism.Analyzers.CSharp.Analyzers.Gigasecond;
 using Exercism.Analyzers.CSharp.Analyzers.Leap;
+using Exercism.Analyzers.CSharp.Analyzers.ResistorColor;
 using Exercism.Analyzers.CSharp.Analyzers.Shared;
 using Exercism.Analyzers.CSharp.Analyzers.TwoFer;
 
@@ -25,6 +26,8 @@ namespace Exercism.Analyzers.CSharp
                     return GigasecondAnalyzer.Analyze(new GigasecondSolution(solution));
                 case Exercises.Leap:
                     return LeapAnalyzer.Analyze(new LeapSolution(solution));
+                case Exercises.ResistorColor:
+                    return ResistorColorAnalyzer.Analyze(new ResistorColorSolution(solution));
                 default:
                     return DefaultExerciseAnalyzer.Analyze(new DefaultSolution(solution));
             }

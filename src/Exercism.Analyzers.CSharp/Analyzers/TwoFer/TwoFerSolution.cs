@@ -68,10 +68,10 @@ namespace Exercism.Analyzers.CSharp.Analyzers.TwoFer
             SpeakMethod.AssignsToParameter(SpeakMethodParameter);
 
         public bool UsesSingleLine =>
-            SpeakMethod.SingleLine();
+            SpeakMethod.UsesSingleLine();
 
         public bool UsesExpressionBody =>
-            SpeakMethod.IsExpressionBody();
+            SpeakMethod.UsesExpressionBody();
 
         public bool UsesStringConcatenation =>
             ReturnsStringConcatenationWithDefaultValue ||

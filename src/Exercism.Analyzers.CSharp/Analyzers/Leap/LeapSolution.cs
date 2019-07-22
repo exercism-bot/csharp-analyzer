@@ -37,10 +37,10 @@ namespace Exercism.Analyzers.CSharp.Analyzers.Leap
             IsLeapYearMethod.InvokesMethod(IsLeapYearMemberAccessExpression());
 
         public bool UsesSingleLine =>
-            IsLeapYearMethod.SingleLine();
+            IsLeapYearMethod.UsesSingleLine();
 
         public bool UsesExpressionBody =>
-            IsLeapYearMethod.IsExpressionBody();
+            IsLeapYearMethod.UsesExpressionBody();
 
         public bool UsesTooManyChecks =>
             IsLeapYearMethod

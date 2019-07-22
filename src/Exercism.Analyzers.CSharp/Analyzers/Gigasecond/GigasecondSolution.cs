@@ -77,10 +77,10 @@ namespace Exercism.Analyzers.CSharp.Analyzers.Gigasecond
             GigasecondValueExpression.IsEquivalentWhenNormalized(GigasecondAsMathPowInvocationExpression());
 
         public bool UsesExpressionBody =>
-            AddMethod.IsExpressionBody();
+            AddMethod.UsesExpressionBody();
 
         public bool UsesSingleLine =>
-            AddMethod.SingleLine();
+            AddMethod.UsesSingleLine();
 
         public bool UsesConstField =>
             UsesField && AddSecondsFieldArgument.IsConst();

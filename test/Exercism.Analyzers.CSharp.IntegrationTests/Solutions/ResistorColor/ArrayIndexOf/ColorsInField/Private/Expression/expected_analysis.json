@@ -1,0 +1,9 @@
+{
+  "status": "approve",
+  "comments": [
+    {
+      "comment": "csharp.general.use_readonly_modifier",
+      "params": { "name": "ColorList" }
+    }
+  ]
+}

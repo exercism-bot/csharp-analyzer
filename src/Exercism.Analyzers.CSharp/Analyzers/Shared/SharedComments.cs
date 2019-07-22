@@ -17,6 +17,9 @@ namespace Exercism.Analyzers.CSharp.Analyzers.Shared
         public static SolutionComment UsePrivateVisibility(string field) =>
             new SolutionComment("csharp.general.use_private_visibility", new SolutionCommentParameter(Name, field));
 
+        public static SolutionComment UseReadonlyModifier(string field) =>
+            new SolutionComment("csharp.general.use_readonly_modifier", new SolutionCommentParameter(Name, field));
+
         public static SolutionComment ConvertFieldToConst(string field) =>
             new SolutionComment("csharp.general.convert_field_to_const", new SolutionCommentParameter(Name, field));
 
@@ -25,5 +28,8 @@ namespace Exercism.Analyzers.CSharp.Analyzers.Shared
 
         public static SolutionComment UseExpressionBodiedMember(string method) =>
             new SolutionComment("csharp.general.use_expression_bodied_member", new SolutionCommentParameter(Name, method));
+
+        public static SolutionComment DoNotRecalculateStaticData(string method) =>
+            new SolutionComment("csharp.general.do_not_recalculate_static_data", new SolutionCommentParameter(Name, method));
     }
 }

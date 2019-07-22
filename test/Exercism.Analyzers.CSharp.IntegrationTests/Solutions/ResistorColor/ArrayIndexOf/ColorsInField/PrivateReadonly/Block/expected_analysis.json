@@ -1,0 +1,13 @@
+{
+  "status": "approve",
+  "comments": [
+    {
+      "comment": "csharp.general.use_expression_bodied_member",
+      "params": { "name": "ColorCode" }
+    },
+    {
+    "comment": "csharp.general.use_expression_bodied_member",
+    "params": { "name": "Colors" }
+    }
+  ]
+}

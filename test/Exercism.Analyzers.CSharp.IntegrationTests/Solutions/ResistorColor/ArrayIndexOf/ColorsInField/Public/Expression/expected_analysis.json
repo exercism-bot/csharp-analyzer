@@ -1,0 +1,13 @@
+{
+  "status": "approve",
+  "comments": [
+    {
+      "comment": "csharp.general.use_private_visibility",
+      "params": { "name": "ColorList" }
+    },
+    {
+      "comment": "csharp.general.use_readonly_modifier",
+      "params": { "name": "ColorList" }
+    }
+  ]
+}

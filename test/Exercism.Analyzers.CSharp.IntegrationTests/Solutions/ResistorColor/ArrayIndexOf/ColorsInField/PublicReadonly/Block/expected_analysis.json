@@ -1,0 +1,17 @@
+{
+  "status": "approve",
+  "comments": [
+    {
+      "comment": "csharp.general.use_private_visibility",
+      "params": { "name": "ColorList" }
+    },
+    {
+      "comment": "csharp.general.use_expression_bodied_member",
+      "params": { "name": "Colors" }
+    },
+    {
+      "comment": "csharp.general.use_expression_bodied_member",
+      "params": { "name": "ColorCode" }
+    }
+  ]
+}

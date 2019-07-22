@@ -9,7 +9,7 @@ namespace Exercism.Analyzers.CSharp.Analyzers.Syntax
         public static bool AssignsToParameter(this MethodDeclarationSyntax methodDeclaration, ParameterSyntax parameter) =>
             methodDeclaration.AssignsToIdentifier(IdentifierName(parameter));
 
-        public static bool SingleLine(this MethodDeclarationSyntax methodDeclaration) =>
+        public static bool UsesSingleLine(this MethodDeclarationSyntax methodDeclaration) =>
             methodDeclaration.ExpressionBody != null ||
             methodDeclaration.Body.Statements.Count == 1;
 
@@ -20,7 +20,7 @@ namespace Exercism.Analyzers.CSharp.Analyzers.Syntax
                 .Select(returnStatement => returnStatement.Expression)
                 .LastOrDefault();
 
-        public static bool IsExpressionBody(this MethodDeclarationSyntax methodDeclaration) =>
+        public static bool UsesExpressionBody(this MethodDeclarationSyntax methodDeclaration) =>
             methodDeclaration.ExpressionBody != null;
 
         public static ParameterSyntax FirstParameter(this MethodDeclarationSyntax methodDeclaration) =>
