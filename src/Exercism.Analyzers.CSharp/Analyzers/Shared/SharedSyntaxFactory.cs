@@ -62,21 +62,21 @@ namespace Exercism.Analyzers.CSharp.Analyzers.Shared
             SyntaxFactory.InvocationExpression(expression)
                 .WithArgumentList(
                     ArgumentList(
-                        SeparatedArgumentList(arguments)));
+                        SeparatedSyntaxList(arguments)));
 
-        private static SeparatedSyntaxList<ArgumentSyntax> SeparatedArgumentList(ArgumentSyntax[] arguments)
+        public static SeparatedSyntaxList<TNode> SeparatedSyntaxList<TNode>(params TNode[] nodes) where TNode: SyntaxNode
         {
-            var syntaxNodesOrTokens = new List<SyntaxNodeOrToken>(capacity: arguments.Length * 2);
+            var syntaxNodesOrTokens = new List<SyntaxNodeOrToken>(capacity: nodes.Length * 2);
 
-            for (var i = 0; i < arguments.Length; i++)
+            for (var i = 0; i < nodes.Length; i++)
             {
                 if (i > 0)
                     syntaxNodesOrTokens.Add(Token(SyntaxKind.CommaToken));
 
-                syntaxNodesOrTokens.Add(arguments[i]);
+                syntaxNodesOrTokens.Add(nodes[i]);
             }
 
-            return SeparatedList<ArgumentSyntax>(syntaxNodesOrTokens);
+            return SeparatedList<TNode>(syntaxNodesOrTokens);
         }
 
         public static AssignmentExpressionSyntax SimpleAssignmentExpression(ExpressionSyntax left, ExpressionSyntax right) =>

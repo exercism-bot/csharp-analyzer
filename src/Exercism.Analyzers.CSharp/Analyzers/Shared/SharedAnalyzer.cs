@@ -8,6 +8,10 @@ namespace Exercism.Analyzers.CSharp.Analyzers.Shared
 {
     internal static class SharedAnalyzer
     {
+        // TODO: also support shared approval comments, like converting to expression body
+        // TODO: check for naming convention violations (should be approval, not disapproval)
+        // TODO: check for unneeded parentheses in return statement
+        
         public static SolutionAnalysis Analyze(Solution solution)
         {
             if (solution.NoImplementationFileFound())

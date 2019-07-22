@@ -1,8 +1,8 @@
-using System;
-using Exercism.Analyzers.CSharp.Analyzers.Shared;
+using System.Linq;
 using Exercism.Analyzers.CSharp.Analyzers.Syntax;
 using Exercism.Analyzers.CSharp.Analyzers.Syntax.Comparison;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using static Exercism.Analyzers.CSharp.Analyzers.ResistorColor.ResistorColorSyntaxFactory;
 
 namespace Exercism.Analyzers.CSharp.Analyzers.ResistorColor
 {
@@ -21,63 +21,43 @@ namespace Exercism.Analyzers.CSharp.Analyzers.ResistorColor
         private MethodDeclarationSyntax ColorsMethod =>
             ResistorColorClass?.GetMethod("Colors");
 
-//        private FieldDeclarationSyntax AddSecondsFieldArgument =>
-//            AddSecondsArgumentVariable.FieldDeclaration();
-        
+        private InitializerExpressionSyntax ColorsInitializer =>
+            ResistorColorClass
+                .DescendantNodes<InitializerExpressionSyntax>()
+                .FirstOrDefault(initializerExpression =>
+                    initializerExpression.IsEquivalentWhenNormalized(
+                        initializerExpression.WithExpressions(ResistorColorColorsSeparatedSyntaxList())));
+
         private ExpressionSyntax ColorCodeMethodReturnedExpression =>
             ColorCodeMethod.ReturnedExpression();
 
         public string ColorCodeMethodName =>
             ColorCodeMethod.Identifier.Text;
 
-//        public string ColorCodeMethodParameterName =>
-//            ColorCodeMethodParameter.Identifier.Text;
-
         private ExpressionSyntax ColorsMethodReturnedExpression =>
             ColorsMethod.ReturnedExpression();
 
         public string ColorsMethodName =>
             ColorsMethod.Identifier.Text;
-        
-        
-        
 
+        public bool ColorCodeMethodUsesExpressionBody =>
+            ColorCodeMethod.UsesExpressionBody();
+
+        public bool ColorCodeMethodUsesSingleLine =>
+            // TODO: rename to CanBeConvertedToExpressionBody
+            ColorCodeMethod.UsesSingleLine();
         
+        public bool ColorsMethodUsesExpressionBody =>
+            ColorsMethod.UsesExpressionBody();
 
-  
-
-//        public bool UsesExpressionBody =>
-//            ColorCodeMethod.UsesExpressionBody();
-//
-//        public bool UsesSingleLine =>
-//            ColorCodeMethod.UsesSingleLine();
-//
-//        public bool UsesConstField =>
-//            UsesField && AddSecondsFieldArgument.IsConst();
+        public bool ColorsMethodUsesSingleLine =>
+            ColorsMethod.UsesSingleLine();
 //
 //        public bool UsesPrivateField =>
 //            UsesField && AddSecondsFieldArgument.IsPrivate();
 //
 //        public bool UsesField =>
 //            AddSecondsArgumentType == ArgumentType.Field;
-//
-//        public bool DoesNotUseAddSeconds =>
-//            AddSecondsInvocationExpression == null;
-//
-//        public bool CreatesNewDatetime =>
-//            ColorCodeMethod.CreatesObjectOfType<DateTime>();
-//
-//        public bool UsesLocalConstVariable =>
-//            UsesLocalVariable &&
-//            AddSecondsLocalArgument.IsConst;
-//
-//        public bool UsesLocalVariable =>
-//            AddSecondsArgumentType == ArgumentType.Local;
-//
-//        public bool AssignsToParameterAndReturns =>
-//            AddMethodReturnType == ReturnType.ParameterAssigment;
-//
-//        public bool AssignsToVariableAndReturns =>
-//            AddMethodReturnType == ReturnType.VariableAssignment;
+
     }
 }
