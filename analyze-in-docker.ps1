@@ -29,4 +29,10 @@ param (
 )
 
 docker build -t exercism/csharp-analyzer .
-docker run -v ${InputDirectory}:/input -v ${OutputDirectory}:/output exercism/csharp-analyzer $Exercise /input /output
+docker run `
+  --network none `
+  --read-only `
+  --mount type=bind,src=${InputDirectory},dst=/input/ `
+  --mount type=bind,src=${OutputDirectory},dst=/output/ `
+  --mount type=tmpfs,dst=/tmp `
+  exercism/csharp-analyzer $Exercise /input /output
